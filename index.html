@@ -10,20 +10,24 @@
           return true;
 
         // Lying iOS13 iPad https://stackoverflow.com/a/59408181/292502
-        if (userAgent.match(/Macintosh/i) !== null) {
-          // need to distinguish between Macbook and iPad
-          var canvas = document.createElement("canvas");
-          if (canvas !== null) {
-            var context = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
-            if (context) {
-              var info = context.getExtension("WEBGL_debug_renderer_info");
-              if (info) {
-                var renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
-                if (renderer.indexOf("Apple") !== -1)
-                  return true;
+        try {
+          if (userAgent.match(/Macintosh/i) !== null) {
+            // need to distinguish between Macbook and iPad
+            var canvas = document.createElement("canvas");
+            if (canvas !== null) {
+              var context = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+              if (context) {
+                var info = context.getExtension("WEBGL_debug_renderer_info");
+                if (info) {
+                  var renderer = context.getParameter(info.UNMASKED_RENDERER_WEBGL);
+                  if (renderer.indexOf("Apple") !== -1)
+                    return true;
+                }
               }
             }
           }
+        } catch(err) {
+          document.getElementById("error").innerText = error.message;
         }
 
         return false;
@@ -41,5 +45,6 @@
     <h1> Detect Mobile Browser verdict: <span id="verdict"></span>
     </h1>
     <h1> <span id="userAgent"></span> </h1>
+    <h2> <span id="error"></span> </h2>
   </body>
 </html>
