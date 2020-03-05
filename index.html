@@ -10,7 +10,7 @@
           return true;
 
         // Lying iOS13 iPad https://stackoverflow.com/a/59408181/292502
-        if (agent.match(/Macintosh/i) !== null) {
+        if (userAgent.match(/Macintosh/i) !== null) {
           // need to distinguish between Macbook and iPad
           var canvas = document.createElement("canvas");
           if (canvas !== null) {
