@@ -17,8 +17,8 @@
         try {
           if (userAgent.match(/Macintosh/i) !== null) {
             // M1 Macbook detection
-            if (navigator.userAgent === "ARM" && navigator.maxTouchPoints > 1) {
-              return { "regex": false, "lieDetector": true };
+            if (navigator.userAgent === "MacIntel" && navigator.maxTouchPoints <= 0) {
+              return { "regex": false, "lieDetector": false };
             }
 
             // need to distinguish between Macbook and iPad
@@ -60,10 +60,12 @@
         platformSpan.innerText = String(navigator.platform);
         var touchPointsSpan = document.getElementById("touchPoint");
         touchPointsSpan.innerText = String(navigator.maxTouchPoints);
-        var verdictSpan = document.getElementById("verdict");
-        verdictSpan.innerText = String(detection.regex);
+        var regexSpan = document.getElementById("regex");
+        regexSpan.innerText = String(detection.regex);
         var lieSpan = document.getElementById("lieDetector");
         lieSpan.innerText = String(detection.lieDetector);
+        var verdictSpan = document.getElementById("verdict");
+        verdictSpan.innerText = String(detection.regex || detection.lieDetector);
         var isAndroidSpan = document.getElementById("isAndroid");
         isAndroidSpan.innerText = String(isAndroid());
         var isMobileSpan = document.getElementById("isMobile");
@@ -75,8 +77,9 @@
     <h1> Detect Mobile Browser</h1>
     <h1> Platform: <span id="platform"></span> </h1>
     <h1> Touch Points: <span id="touchPoint"></span> </h1>
-    <h1> Regex: <span id="verdict"></span> </h1>
+    <h1> Regex: <span id="regex"></span> </h1>
     <h1> iOS Lie: <span id="lieDetector"></span> </h1>
+    <h1> Verdict (regex || lie): <span id="verdict"></span> </h1>
     <h1> Is Android? <span id="isAndroid"></span> </h1>
     <h1> Is Mobile? <span id="isMobile"></span> </h1>
     <h1> <span id="userAgent"></span> </h1>
