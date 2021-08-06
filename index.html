@@ -17,7 +17,7 @@
         try {
           if (userAgent.match(/Macintosh/i) !== null) {
             // M1 Macbook detection
-            if (navigator.userAgent === "MacIntel" && navigator.maxTouchPoints <= 0) {
+            if (navigator.platform === "MacIntel" && navigator.maxTouchPoints <= 0) {
               return { "regex": false, "lieDetector": false };
             }
 
